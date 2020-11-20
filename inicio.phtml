@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Meta-->
+  	<meta charset="UTF-8">
+   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<meta name="description" content="esto es una description">
+  	<meta name="keywords" content="HTML5 CSS,JS">
+ 	<!--Css-->
+ 	<link rel="stylesheet" type="text/css" href="views/css/reset.css">
+ 	<link rel="stylesheet" type="text/css" href="views/css/inicio.css">
+ 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ 	<!--jquerry-->
+ 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ 	<!--Bootstrap-->
+ 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+ 	<!--Tipos de letras-->
+  	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&display=swap" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300;1,700&display=swap" rel="stylesheet">
+  	<!--js-->
+  	<script src='views/js/funciones.js' type='text/javascript'></script>
+  	<!--Mas menos Dia Noche iconos-->
+  	<script src="https://kit.fontawesome.com/9266206c89.js" crossorigin="anonymous"></script>
+    <!--Titulo-->
+  	<title>Shiny-news-Inicio</title> 	
+</head>
+<body>
+	<!--Cabecera cuerpo-->
+	<header id="cabecera">
+        <div id='cabecera'>
+        	<i class="fas fa-plus" id="mas"></i> 
+        	<i class="fas fa-minus" id="menos"></i>
+        	<i class="fas fa-adjust" id='tiempo'></i>
+        </div>
+        	<h1>Shiny-News</h1>
+        <div class='descripcion'>Ingeniería Web<div id="onoff"> 
+          <?php
+          if(!empty($_SESSION["usuario"]))
+          	echo $_SESSION["usuario"];  
+          else
+          	echo "Invitado"; ?>	
+        </div>      
+  	</header>
+	<!--Barra Navegacion-->
+    <ul id="barranav" class="nav">
+        <li class="nav-item">
+          <a class="nav-link " href="index.php">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="noticias.php?cat=todos">Noticias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.php">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="admin.php">Administrador</a>
+        </li>
+    </ul>
+	<!--Seccion Ultimas 5 Noticias-->
+  	<section><?php 
+  		for($i=0; $i < 5 ; $i++){ ?>
+  			<article>
+  				<header id='noticia1'>
+  					<h2><?php
+  						$dato=$sotad[$i];
+    					 echo $dato["titulo"]."  ".$dato["valoracion"]."<br>";?>
+					</h2><?php 
+					$dato=$sotad[$i];   
+					$autor=$dato["autor"]; 
+					$cate=$dato["categoria"];?>	<?php 	
+					echo "<a href='noticias.php?cat=Autor&autor=$autor'> $autor </a>" ?>  | <?php 
+					echo "<a href='noticias.php?cat=$cate'> $cate </a>" ?> |  <?php 
+					echo $dato["fecha"]."  "."Valoracion: ".$dato["valoracion"]."/5"."<br>";  ?>
+       			</header>
+				<p><?php
+     				$dato=$sotad[$i];
+              		$dato["noticia"]=substr($dato["noticia"],0,300);
+					echo $dato["noticia"]."..."."<br>";?>		
+  				</p>
+  			 	<footer id='pieNota'><?php
+  			 		$id=$dato["id"];
+  			 		echo "<a href='comentar.php?id=$id'>Leer mas |  Comentar</a>"  ?>
+        		</footer>
+  			</article><?php 
+  		}?>
+  	</section>
+  	<!--Barra Derechas-->
+  	<aside>
+ 		<ul>
+ 			<li>Ultimos Post</li><?php 
+ 				for($i=0; $i < 5 ; $i++){
+          			$dato=$sotad[$i];
+          			$id=$dato["id"];
+          			$titulo=$dato["titulo"];
+          			$cate=$dato["categoria"];
+         			echo "<a href='comentar.php?id=$id'> $titulo</a>" ?> | <?php 
+         			echo "<a href='noticias.php?cat=$cate'> $cate <br></a>" ;         
+        		} ?>
+ 		   		<br>
+ 			<li>Crilanselo</li>
+        	El perfil personal/profesional es el conjunto de capacidades y competencias que posee una persona, que le permitirá asumir responsabilidades propias de una determinada profesión.<br>
+       		<!-- Button trigger modal -->
+			<button type="button" class="btn btn-link" data-toggle="modal" data-target="#staticBackdrop">
+  				Mas informacion
+			</button>
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  				<div class="modal-dialog">
+   					<div class="modal-content">
+      					<div class="modal-header">
+        					<h5 class="modal-title" id="staticBackdropLabel">Crilanselo</h5>
+        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          						<span aria-hidden="true">&times;</span>
+        					</button>
+      					</div>
+      					<div class="modal-body">
+       						Antes de empezar a buscar trabajo, debemos reflexionar sobre nuestro perfil y nuestro objetivo profesional.
+
+							El perfil personal/profesional es el conjunto de capacidades y competencias que posee una persona, que le permitirá asumir responsabilidades propias de una determinada profesión. El analizar nuestro perfil personal/profesional tiene una triple funcionalidad porque nos puede servir para introducirlo en el CV, como un párrafo breve justo debajo de los datos personales, en la carta de presentación a la hora de hablar de nosotros/as mismos/as y así, tanto en un sitio como en el otro o en ambos sitios, el seleccionador tendrá una idea de cómo somos y  hacia donde nos dirigimos antes de conocer que hemos estudiado o en qué tenemos experiencia. Por último también nos puede ayudar a la hora de responder a determinadas preguntas en las entrevistas de trabajo.
+
+							Os atrevéis a hacer vuestro perfil? Os dejamos un documento que os puede servir de guía para empezar a elaborarlo
+      					</div>
+      					<div class="modal-footer">
+        					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      					</div>
+    				</div>
+  				</div>
+			</div>
+			<br>
+ 			<li>Top Post</li><?php 
+ 				for($i=0; $i < 5 ; $i++){
+          			$datoTop=$datosAsideTop[$i];
+          			$id=$datoTop["id"];
+          			$titulo=$datoTop["titulo"];
+          			$cate=$datoTop["categoria"];
+          			$cali=$datoTop["valoracion"];
+         			echo "<a href='comentar.php?id=$id'> $titulo</a>" ?> | <?php 
+         			echo "<a href='noticias.php?cat=$cate'> $cate <br></a>";        
+        		} ?>
+ 		</ul>
+ 	</aside>  
+</body>
+<!--Pie de pagina-->
+<footer id="pie">
+ 	Copyright @2020
+ 	<br/>
+ 	ShiShiGanG
+</footer>
+</html>
